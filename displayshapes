@@ -1,0 +1,24 @@
+import requests
+import json
+
+accesskey="UjVldXFiWUNzZXJONjVBMEZBWVY="
+secretkey="N3Q3cHdvTkN4WkhxdVRid3E3YUppNzJZSnhIRXBhTVJsdw=="
+device="sco4606"
+url = "https://wizklub.com/api/secured/wiziot-poll-request/"
+headers = {"Api-Access-Key": accesskey, "Api-Secret-Key": secretkey, "Content-Type": "application/json"}
+
+payload_reset = json.dumps({"mode": "WRITE", "device_id": device, "source": "API", "api": "oled", "type": "reset", "msg_to_write": "", "x_axis": "0", "y_axis": "0"})
+
+
+circle = json.dumps({"mode": "WRITE", "device_id":device, "source": "API", "api": "oled", "type": "circle", "x_axis": "60", "y_axis": "25", "radius": "20", "fill_type": "0"})
+rectangle=json.dumps({"mode": "WRITE", "device_id": device, "source": "API", "api": "oled", "type": "rectangle", "x_axis": "5", "y_axis": "5", "length": "30", "breadth": "20", "radius": "10", "fill_type": "0 | 1"})
+line=json.dumps({"mode": "WRITE", "device_id": device, "source": "API", "api": "oled", "type": "line", "x1": "10", "y1": "10", "x2": "20", "y2": "20"})
+pixel=json.dumps({"mode": "WRITE", "device_id": device, "source": "API", "api": "oled", "type": "pixel", "x_axis": "0", "y_axis": "0"})
+
+requests.request("POST",url,headers=headers,data=payload_reset)
+
+payload=[circle,rectangle,line,pixel]
+for i in payload:
+    requests.request("POST",url,headers=headers,data=i)
+    print(response.text)
+print(response.text)
