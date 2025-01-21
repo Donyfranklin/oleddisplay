@@ -1,0 +1,20 @@
+import requests
+import json
+
+
+accesskey="UjVldXFiWUNzZXJONjVBMEZBWVY="
+secretkey="N3Q3cHdvTkN4WkhxdVRid3E3YUppNzJZSnhIRXBhTVJsdw=="
+device="sc04606"
+url = "https://wizklub.com/api/secured/wiziot-poll-request/"
+
+
+
+payloadreset = json.dumps({"mode": "WRITE", "device_id": device, "source": "API", "api": "oled", "type": "reset", "msg_to_write": "", "x_axis": "0", "y_axis": "0"})
+payload = json.dumps({"mode": "WRITE", "device_id": device, "source": "API", "api": "oled", "type": "text", "msg_to_write": "vijayendran", "x_axis": "0", "y_axis": "0"})
+headers = {"Api-Access-Key": accesskey, "Api-Secret-Key": secretkey, "Content-Type": "application/json"}
+
+responsereset = requests.request("POST", url, headers=headers, data=payloadreset)
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(responsereset.text)
+print(response.text)
